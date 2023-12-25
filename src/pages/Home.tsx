@@ -99,7 +99,7 @@ export default function Home() {
     return (
         <>
             <div className={classes.button}>
-                <Button size="large" onClick={() => setOpen(o => !o)} variant="contained"><RSVPIcon style={{ fontSize: '4.1875rem' }} /></Button>
+                <Button size="large" onClick={() => setOpen(o => !o)} sx={{ borderRadius: 4 }} variant="contained"><RSVPIcon style={{ fontSize: '4.1875rem' }} /></Button>
             </div>
             <video autoPlay muted loop className={classes.video} playsInline>
                 <source src="highfieldpark.mp4" type="video/mp4" />
