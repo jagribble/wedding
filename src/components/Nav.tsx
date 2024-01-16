@@ -20,8 +20,15 @@ const useStyles = makeStyles()((theme) => ({
         justifyContent: 'end'
     },
     outlet: {
-        marginTop: 60
-    }
+        marginTop: 60,
+        zIndex: 10000,
+    }, video: {
+        position: 'fixed',
+        right: 0,
+        bottom: 0,
+        minWidth: '100%',
+        minHeight: '100%'
+    },
 }));
 
 export function Nav() {
@@ -41,7 +48,7 @@ export function Nav() {
             <AppBar position="fixed" color="primary">
                 <Container maxWidth="xl" >
                     <Toolbar disableGutters className={classes.appBar}>
-                        <Typography variant="h6" onClick={() => navigate('/')}>Emma & Jules</Typography>
+                        <Typography variant="h6" sx={{}} onClick={() => navigate('/')}>Emma & Jules</Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} className={classes.pages}>
                             {pages.map((page) => (
                                 <Button
@@ -60,6 +67,9 @@ export function Nav() {
                 <Outlet />
 
             </div>
+            <video autoPlay muted loop className={classes.video} playsInline>
+                <source src="highfieldpark.mp4" type="video/mp4" />
+            </video>
         </>
     );
 }

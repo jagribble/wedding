@@ -1,10 +1,12 @@
-import { Button, Drawer, Hidden, Icon, IconButton, LinearProgress, Typography } from "@mui/material";
+import { Button, Drawer, Grid, Hidden, Icon, IconButton, LinearProgress, Typography } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { makeStyles } from "tss-react/mui";
 import { useSpring, animated, to } from '@react-spring/web';
 import { useGesture } from 'react-use-gesture';
 import clsx from "clsx";
 import RSVPIcon from '@mui/icons-material/Rsvp';
+
+import { useNavigate } from "react-router-dom";
 
 const calcX = (y: number, ly: number) => -(y - ly - window.innerHeight / 2) / 20
 const calcY = (x: number, lx: number) => (x - lx - window.innerWidth / 2) / 20
@@ -32,6 +34,7 @@ const useStyles = makeStyles()((theme) => ({
         color: '#f1f1f1',
         width: '100%',
         padding: 20,
+        zIndex: 1000
     },
     splashText: {
         width: '100%',
@@ -88,7 +91,7 @@ const useStyles = makeStyles()((theme) => ({
         marginLeft: -55.5
     },
     drawer: {
-        height: 'calc( 100vh - 123px)',
+        height: 'calc( 100vh - 150px)',
         borderRadius: '0px 15px',
     }
 }));
@@ -96,14 +99,27 @@ const useStyles = makeStyles()((theme) => ({
 export default function Home() {
     const { classes } = useStyles();
     const [open, setOpen] = useState(false);
+    const nav = useNavigate()
+    const goToFAQ = () => {
+        nav('/faq')
+    }
     return (
         <>
             <div className={classes.button}>
-                <Button size="large" onClick={() => setOpen(o => !o)} sx={{ borderRadius: 4 }} variant="contained"><RSVPIcon style={{ fontSize: '4.1875rem' }} /></Button>
+                <Grid container spacing={1} direction="column" alignItems="center">
+                    <Grid item>
+                        <Button size="large" onClick={() => setOpen(o => !o)} sx={{ borderRadius: 4, }} variant="contained"><Typography variant="h3"><b>RSVP</b></Typography></Button>
+                    </Grid>
+                    <Grid item>
+                        <Button size="large" onClick={goToFAQ} sx={{ borderRadius: 4, }} variant="contained"><Typography variant="h3"><b>FAQ</b></Typography></Button>
+
+                    </Grid>
+
+                </Grid>
             </div>
-            <video autoPlay muted loop className={classes.video} playsInline>
+            {/* <video autoPlay muted loop className={classes.video} playsInline>
                 <source src="highfieldpark.mp4" type="video/mp4" />
-            </video>
+            </video> */}
             <div className={classes.splashImage}>
                 <Hidden smDown>
                     <div className={clsx(classes.card)}>
@@ -116,9 +132,9 @@ export default function Home() {
 
                         <div className={classes.splashText}>
 
-                            <Typography variant="h2" color="white">Emma & Jules</Typography>
-                            <Typography variant="h4" color="white">10th April 2025</Typography>
-                            <Typography variant="h4" color="white">Highfield Park</Typography>
+                            <Typography sx={{}} variant="h2" color="white">Emma & Jules</Typography>
+                            <Typography sx={{}} variant="h4" color="white">10th April 2025</Typography>
+                            <Typography sx={{}} variant="h4" color="white">Highfield Park</Typography>
                         </div>
                         <Hidden smUp>
                             <div className={clsx(classes.cardMobile)}>
