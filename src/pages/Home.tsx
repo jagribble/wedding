@@ -1,4 +1,4 @@
-import { Button, Drawer, Grid, Hidden, Icon, IconButton, LinearProgress, Typography } from "@mui/material";
+import { Box, Button, Drawer, Grid, Hidden, Icon, IconButton, LinearProgress, Typography } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { makeStyles } from "tss-react/mui";
 import { useSpring, animated, to } from '@react-spring/web';
@@ -100,27 +100,56 @@ export default function Home() {
     const { classes } = useStyles();
     const [open, setOpen] = useState(false);
     const nav = useNavigate()
-    const goToFAQ = () => {
-        nav('/faq')
+    const goTo = (path: string) => {
+        nav(path);
     }
+
+
     return (
         <>
-            <div className={classes.button}>
+            <Box>
+                <img src="highfieldPark.jpg" width="100%" />
+                <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', margin: 6 }}>
+                    <Typography gutterBottom variant="h1">Emma & Jules</Typography>
+                    <Typography sx={{}} variant="h3">10th April 2025</Typography>
+                    <Typography gutterBottom sx={{}} variant="h3">Highfield Park</Typography>
+                    <div style={{ marginTop: 12 }} />
+
+                </div>
+                <div style={{ marginLeft: 6, marginRight: 6 }}>
+                    <Grid container justifyContent="center" spacing={8}>
+                        <Grid item sm={3} xs={12}>
+                            <Button size="large" sx={{ color: 'black', borderColor: 'black', width: '100%' }} onClick={() => setOpen(o => !o)} variant="outlined">RSVP</Button>
+                        </Grid>
+                        <Grid item sm={3} xs={12}>
+                            <Button size="large" sx={{ color: 'black', borderColor: 'black', width: '100%' }} onClick={() => goTo('/faq')} variant="outlined">FAQ</Button>
+                        </Grid>
+                        <Grid item sm={3} xs={12}>
+                            <Button size="large" sx={{ color: 'black', borderColor: 'black', width: '100%' }} onClick={() => goTo('/honeymoon-fund')} variant="outlined">Honeymoon Fund</Button>
+                        </Grid>
+                    </Grid>
+                </div>
+
+            </Box >
+            {/* <div className={classes.button}>
                 <Grid container spacing={1} direction="column" alignItems="center">
                     <Grid item>
                         <Button size="large" onClick={() => setOpen(o => !o)} sx={{ borderRadius: 4, }} variant="contained"><Typography variant="h3"><b>RSVP</b></Typography></Button>
                     </Grid>
                     <Grid item>
-                        <Button size="large" onClick={goToFAQ} sx={{ borderRadius: 4, }} variant="contained"><Typography variant="h3"><b>FAQ</b></Typography></Button>
+                        <Button size="large" onClick={() => goTo('/faq')} sx={{ borderRadius: 4, }} variant="contained"><Typography variant="h3"><b>FAQ</b></Typography></Button>
 
                     </Grid>
+                    <Grid item>
+                        <Button size="large" onClick={() => goTo('/wedding-fund')} sx={{ borderRadius: 4, }} variant="contained"><Typography variant="h3"><b>Wedding Fund</b></Typography></Button>
 
+                    </Grid>
                 </Grid>
-            </div>
+            </div> */}
             {/* <video autoPlay muted loop className={classes.video} playsInline>
                 <source src="highfieldpark.mp4" type="video/mp4" />
             </video> */}
-            <div className={classes.splashImage}>
+            {/* <div className={classes.splashImage}>
                 <Hidden smDown>
                     <div className={clsx(classes.card)}>
                         <img src="./logosquare.jpeg" alt="Picture of Emma and Jules" width="300" height="100%" />
@@ -147,7 +176,7 @@ export default function Home() {
 
                 </div>
 
-            </div>
+            </div> */}
             <Drawer open={open} anchor="bottom" onClose={() => setOpen(false)} PaperProps={{
                 sx: {
                     height: 'calc( 100vh - 123px)',

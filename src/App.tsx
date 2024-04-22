@@ -3,7 +3,9 @@ import { BrowserRouter, Outlet, Route, Routes, useLocation } from "react-router-
 import { createTheme, CssBaseline, LinearProgress, responsiveFontSizes, ThemeProvider, Toolbar, Typography, useMediaQuery } from '@mui/material';
 import { Nav } from './components/Nav';
 import { motion } from "framer-motion";
+import { Auth0Provider } from '@auth0/auth0-react';
 import './App.css';
+import WeddingFund from './pages/WeddingFund';
 
 const Home = lazy(() => import('./pages/Home'));
 const Bio = lazy(() => import('./pages/Bio'));
@@ -53,7 +55,9 @@ function App() {
       palette: { 
         primary: {main: '#E19B9F'},
         secondary: { main: '#CBABFA'},
-        mode: false ? 'dark' : 'light' },
+        info: { main: '#000' },
+        mode: false ? 'dark' : 'light'
+      },
       typography: {
         fontFamily: 'Dancing Script'
         // fontFamily: "'Montserrat', sans-serif"
@@ -63,23 +67,33 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Auth0Provider
+        domain="emmaandjules.eu.auth0.com"
+        clientId="d6i0nrwBFpNr44brfFrg9SxlzfYEHeVD"
+        authorizationParams={{
+          redirect_uri: window.location.origin
+        }}
+      >
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <>
-          <Suspense fallback={<LinearProgress />}>
-            <Routes>
-              {/* <Route element={<AnimationLayout />}> */}
-              <Route path="/" element={<Nav />}>
-                <Route index element={<Home />} />
-                <Route path="faq" element={<FAQ />} />
-              </Route>
-              {/* </Route> */}
+          <CssBaseline />
+          <>
+            <Suspense fallback={<LinearProgress />}>
+              <Routes>
+                {/* <Route element={<AnimationLayout />}> */}
+                <Route path="/" element={<Nav />}>
+                  <Route index element={<Home />} />
+                  <Route path="faq" element={<FAQ />} />
+                  <Route path="honeymoon-fund" element={<WeddingFund />} />
+                </Route>
+                {/* </Route> */}
 
-             
-            </Routes>
-          </Suspense>
-        </>
-      </ThemeProvider>
+
+              </Routes>
+            </Suspense>
+          </>
+        </ThemeProvider>
+      </Auth0Provider>
+
     </BrowserRouter>
 
   );

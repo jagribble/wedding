@@ -1,4 +1,5 @@
-import { AppBar, Box, Button, Container, Toolbar, Typography } from "@mui/material";
+import { useAuth0 } from "@auth0/auth0-react";
+import { AppBar, Avatar, Box, Button, Container, Toolbar, Typography } from "@mui/material";
 import React, { useCallback } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { makeStyles } from "tss-react/mui";
@@ -17,11 +18,12 @@ const useStyles = makeStyles()((theme) => ({
         display: 'flex'
     },
     pages: {
-        justifyContent: 'end'
+        justifyContent: 'end',
     },
     outlet: {
         marginTop: 60,
         zIndex: 10000,
+        height: 'calc(100vh)',
     }, video: {
         position: 'fixed',
         right: 0,
@@ -29,12 +31,19 @@ const useStyles = makeStyles()((theme) => ({
         minWidth: '100%',
         minHeight: '100%'
     },
+    buttons: {
+        color: 'black',
+        borderColor: 'black',
+        '&:': {
+            borderColor: 'black',
+        }
+    }
 }));
 
 export function Nav() {
     const { classes } = useStyles();
     const navigate = useNavigate();
-
+    const { loginWithRedirect, isAuthenticated, user } = useAuth0();
     const navigateTo = useCallback((page: Page) => {
         if (page.external) {
             window.location.href = page.url;
@@ -42,7 +51,6 @@ export function Nav() {
         }
         navigate(page.url);
     }, [navigate]);
-
     return (
         <>
             <AppBar position="fixed" color="primary">
@@ -50,16 +58,18 @@ export function Nav() {
                     <Toolbar disableGutters className={classes.appBar}>
                         <Typography variant="h6" sx={{}} onClick={() => navigate('/')}>Emma & Jules</Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} className={classes.pages}>
-                            {pages.map((page) => (
-                                <Button
-                                    key={page.name}
-                                    onClick={() => navigateTo(page)}
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
-                                >
-                                    {page.name}
-                                </Button>
-                            ))}
+                            {/* {isAuthenticated ? (
+                                <>
+                                    {/* <Typography>{user?.name}</Typography> }
+                            <Avatar srcSet={user?.picture} alt={user?.name} />
+
+                        </>
+                        ) : (
+                        <Button variant="outlined" className={classes.buttons} onClick={() => loginWithRedirect()} color="info">Login</Button>
+                            )} */}
+
                         </Box>
+
                     </Toolbar>
                 </Container>
             </AppBar>
@@ -67,9 +77,9 @@ export function Nav() {
                 <Outlet />
 
             </div>
-            <video autoPlay muted loop className={classes.video} playsInline>
+            {/* <video autoPlay muted loop className={classes.video} playsInline>
                 <source src="highfieldpark.mp4" type="video/mp4" />
-            </video>
+            </video> */}
         </>
     );
 }
