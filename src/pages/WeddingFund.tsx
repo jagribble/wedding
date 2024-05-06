@@ -126,10 +126,6 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     [`&.${linearProgressClasses.colorPrimary}`]: {
         backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
     },
-    [`& .${linearProgressClasses.bar}`]: {
-        borderRadius: 5,
-        backgroundColor: theme.palette.mode === 'light' ? '#1a90ff' : '#308fe8',
-    },
 }));
 
 const itemUseStyles = makeStyles()({
@@ -171,7 +167,7 @@ function Item({ name, totalPrice = 0, currentTotal = 0, image, description, perD
                     <Typography sx={{ fontSize: '1.5rem' }}>{name}</Typography>
                     <Typography variant="caption">£{totalPrice}</Typography>
 
-                    <BorderLinearProgress variant="determinate" value={progress} />
+                    <BorderLinearProgress variant="determinate" value={progress} color="primary" />
                     <Markdown children={description} className={classes.description} />
                 </CardContent>
                 <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -202,7 +198,7 @@ function Item({ name, totalPrice = 0, currentTotal = 0, image, description, perD
 }
 
 
-const items: ItemProps[] = [
+const itemsLocal: ItemProps[] = [
     {
         name: 'Leaning Tower of Pisa',
         totalPrice: 50,
@@ -297,9 +293,23 @@ If you are having issues using the buttons below either contact us or use our ba
 - **Account No.:** 67200533
 `;
 
+
+
 export default function WeddingFund() {
     const { classes } = useStyles();
     const [showBankDetials, setShowBankDetails] = useState(false);
+    const [items, setItems] = useState<ItemProps[]>([]);
+
+    const getItems = async () => {
+        const response = await fetch('https://api.emmaandjules.info/honeymoon');
+        const json = await response.json();
+        setItems(json);
+    }
+
+    useEffect(() => {
+        getItems();
+    }, [])
+
     return (
         <>
             <div className={classes.title}>
