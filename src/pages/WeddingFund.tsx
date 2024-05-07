@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardActions, CardContent, CardMedia, Collapse, Drawer, Grid, Hidden, Icon, IconButton, InputAdornment, LinearProgress, TextField, Typography, linearProgressClasses, styled } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Card, CardActions, CardContent, CardMedia, Collapse, Drawer, Grid, Hidden, Icon, IconButton, InputAdornment, LinearProgress, Skeleton, TextField, Typography, linearProgressClasses, styled } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import DoneIcon from '@mui/icons-material/Done';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -197,6 +197,30 @@ function Item({ name, totalPrice = 0, currentTotal = 0, image, description, perD
     )
 }
 
+function ItemSkeleton() {
+    const { classes } = itemUseStyles();
+
+    return (
+        <Grid item xs={12} sm={4} md={3}>
+            <Card>
+                <Skeleton variant="rectangular" height={180} width="100%" />
+
+                <CardContent>
+                    <Skeleton variant="text" height={20} width="100%" />
+                    <Skeleton variant="text" height={20} width="100%" />
+
+                    <BorderLinearProgress variant="indeterminate" color="primary" />
+
+                </CardContent>
+                <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Skeleton variant="text" height={40} width="100%" />
+
+                </CardActions>
+            </Card>
+        </Grid>
+    )
+}
+
 
 const itemsLocal: ItemProps[] = [
     {
@@ -329,6 +353,20 @@ export default function WeddingFund() {
 
             <div className={classes.faqs}>
                 <Grid container sx={{ width: '100%' }} spacing={2}>
+                    {items.length === 0 && (
+                        <>
+                            <Hidden smUp>
+                                <ItemSkeleton />
+                            </Hidden>
+                            <Hidden smDown>
+                                <ItemSkeleton />
+                                <ItemSkeleton />
+                                <ItemSkeleton />
+                                <ItemSkeleton />
+                            </Hidden>
+
+                        </>
+                    )}
                     {items.map(item => (
                         <Item
                             key={item.name}
