@@ -157,6 +157,16 @@ Local taxi companies:
             <Map />
         )
 }, {
+        title: 'Photos/Social Media',
+        body: `Like most weddings we have two photographers that will be taking photos throughout the day. Of course we would also love to see your photos! We just ask that these are taken on your phone, our photographer will be getting lots of professional photos.
+> We kindly ask that people do not take photos during the cermony. We would like for people to be there in the moment with us. 
+
+We will be setting up a way for you to share your photos with us, so watch this space.
+
+> Please do not post any photos on social media until the day after the wedding. 
+
+    `
+    }, {
     title: `I have another question that isn't on here`,
         body: 'If you have any other questions please email Emma & Jules via [help@emmaandjules.info](mailto:help@emmaandjules.info) OR call/text Jules on **07507 813132**',
 }];
