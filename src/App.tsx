@@ -10,7 +10,10 @@ import WeddingFund from './pages/WeddingFund';
 const Home = lazy(() => import('./pages/Home'));
 const Bio = lazy(() => import('./pages/Bio'));
 const FAQ = lazy(() => import('./pages/FAQ'));
-
+const ResponseForm = lazy(() => import('./pages/ResponseForm'));
+const ResponseGiven = lazy(() => import('./pages/ResponseGiven'));
+const CreatePeople = lazy(() => import('./pages/CreatePeople'));
+const CreateRSVP = lazy(() => import('./pages/CreateRSVP'));
 const PageLayout = ({ children }) => children;
 
 const pageVariants = {
@@ -84,6 +87,10 @@ function App() {
                   <Route index element={<Home />} />
                   <Route path="faq" element={<FAQ />} />
                   <Route path="honeymoon-fund" element={<WeddingFund />} />
+                  <Route path="invite/:id" element={<ResponseForm />} />
+                  <Route path="responded" element={<ResponseGiven />} />
+                  <Route path="create" element={<CreatePeople />} />
+                  <Route path="creatersvp" element={<CreateRSVP />} />
                 </Route>
                 {/* </Route> */}
 

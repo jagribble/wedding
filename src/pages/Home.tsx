@@ -118,9 +118,7 @@ export default function Home() {
                 </div>
                 <div style={{ marginLeft: 6, marginRight: 6 }}>
                     <Grid container justifyContent="center" spacing={8}>
-                        <Grid item sm={3} xs={12}>
-                            <Button size="large" sx={{ color: 'black', borderColor: 'black', width: '100%' }} onClick={() => setOpen(o => !o)} variant="outlined">RSVP</Button>
-                        </Grid>
+
                         <Grid item sm={3} xs={12}>
                             <Button size="large" sx={{ color: 'black', borderColor: 'black', width: '100%' }} onClick={() => goTo('/faq')} variant="outlined">FAQ</Button>
                         </Grid>
