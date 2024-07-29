@@ -52,6 +52,19 @@ export default function CreateRSVP() {
         });
         return attending;
     }, [allRSVP]);
+    const peopleNotAttending = useMemo(() => {
+        const attending: Guest[] = [];
+        allRSVP.forEach(r => {
+            if (r.finished) {
+                r.people.forEach(x => {
+                    if (!x.attending) {
+                        attending.push(x);
+                    }
+                })
+            }
+        });
+        return attending;
+    }, [allRSVP]);
     // const peopleAttending = useMemo(() => allRSVP.reduce((prev, curr) => [...prev, ...(curr.finished ? ...curr.people.reduce((p, c) => p.push(c.attending ? c : []), []) : ...[]))], []), [allRSVP]);
     const filtered = useMemo(() => allRSVP.filter(x => x.people.some(x => x.firstName.toLowerCase().includes(search.toLowerCase()) || x.lastName.toLowerCase().includes(search.toLowerCase()))), [allRSVP, search]);
     useEffect(() => {
@@ -149,6 +162,7 @@ export default function CreateRSVP() {
             <Typography sx={systemUI}>Guests Invited: {guestsInvited}</Typography>
             <Typography sx={systemUI}>Total People: {allGuests.length}</Typography>
             <Typography sx={systemUI}>People Attending: {peopleAttending.length}</Typography>
+            <Typography sx={systemUI}>People Not Attending: {peopleNotAttending.length}</Typography>
             <Button variant="contained" sx={systemUI} color="secondary" onClick={() => setOpen(true)}>Show Attendees</Button>
             {filtered.map(x => <Card sx={{ margin: 1 }}><Typography sx={{ ...systemUI, margin: 0.5 }}><b>{x.code}</b>- {x.people.map(c => `${c.firstName} ${c.lastName}`).join(', ')}</Typography></Card>)}
             <Dialog open={open} onClose={() => setOpen(false)}>
@@ -159,7 +173,15 @@ export default function CreateRSVP() {
                     >
                         <SaveAltIcon />
                     </IconButton>
+                    <Typography>Attending</Typography>
                     {peopleAttending.map(guest => (
+                        <Card key={`${guest.firstName}-${guest.lastName}`} sx={{ margin: 1, padding: 1 }}>
+                            <Typography sx={systemUI} >{guest.firstName}&nbsp;{guest.lastName}</Typography>
+                            <Typography sx={systemUI}>Dietry Requirments: {guest.dietryRequirments}</Typography>
+                        </Card>
+                    ))}
+                    <Typography>Not Attending</Typography>
+                    {peopleNotAttending.map(guest => (
                         <Card key={`${guest.firstName}-${guest.lastName}`} sx={{ margin: 1, padding: 1 }}>
                             <Typography sx={systemUI} >{guest.firstName}&nbsp;{guest.lastName}</Typography>
                             <Typography sx={systemUI}>Dietry Requirments: {guest.dietryRequirments}</Typography>
