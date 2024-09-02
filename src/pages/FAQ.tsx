@@ -116,10 +116,10 @@ const faqs = [{
     body: 'Highfield Park is a country manor house in Hampshire. The address is Church Lane, Heckfield, Nr. Hook, Hampshire, RG27 0LG'
 }, {
     title: 'What is the time of the cermony?',
-    body: 'The time of the cermony is currently 14:00. This is subject to change but will be confirmed on invatations that will be sent out nearer the time.'
+    body: 'The time of the cermony is currently 14:00. This is subject to change but will be confirmed on invitations that will be sent out nearer the time.'
 }, {
     title: 'Can I have a plus one?',
-    body: 'Due to the cost and space we are limitting the number of guests. The names on the envelopes of the "Save the Dates" and Invatations are those invited. If you feel we have missed someone out please do contact us ASAP.'
+    body: 'Due to the cost and space we are limitting the number of guests. The names on the envelopes of the "Save the Dates" and invitations are those invited. If you feel we have missed someone out please do contact us ASAP.'
 }, {
     title: 'Do you have a registry?',
     body: `Having you at our wedding is all we want, but if you do want to give us a gift you can contribute to our [honeymoon fund here](/honeymoon-fund). Thank you!`
