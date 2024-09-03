@@ -24,7 +24,11 @@ const useStyles = makeStyles()((theme) => ({
         marginTop: 60,
         zIndex: 10000,
         height: 'calc(100vh)',
-    }, video: {
+        [theme.breakpoints.only('xs')]: {
+            marginTop: 57,
+        }
+    },
+    video: {
         position: 'fixed',
         right: 0,
         bottom: 0,

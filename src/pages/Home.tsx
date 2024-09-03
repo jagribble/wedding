@@ -1,5 +1,5 @@
-import { Box, Button, Drawer, Grid, Hidden, Icon, IconButton, LinearProgress, Typography } from "@mui/material";
-import React, { useRef, useState } from "react";
+import { Box, Button, Drawer, Grid, Hidden, Icon, IconButton, LinearProgress, Typography, useMediaQuery, useTheme } from "@mui/material";
+import React, { useMemo, useRef, useState } from "react";
 import { makeStyles } from "tss-react/mui";
 import { useSpring, animated, to } from '@react-spring/web';
 import { useGesture } from 'react-use-gesture';
@@ -98,17 +98,22 @@ const useStyles = makeStyles()((theme) => ({
 
 export default function Home() {
     const { classes } = useStyles();
+    const theme = useTheme();
+    const smUp = useMediaQuery(theme.breakpoints.up('sm'));
     const [open, setOpen] = useState(false);
     const nav = useNavigate()
     const goTo = (path: string) => {
         nav(path);
     }
 
+    const gradient = useMemo(() => smUp ? 'linear-gradient(0deg, rgba(240,205,207,1) 10%, rgba(240,205,207,0.4906556372549019) 39%, rgba(34,34,34,0) 90%)' : 'linear-gradient(0deg, rgb(240, 205, 207) 5%, rgba(240, 205, 207, 0.49) 17%, rgba(34, 34, 34, 0) 95%)', [smUp]);
 
     return (
         <>
             <Box>
                 <img src="highfieldPark.jpg" width="100%" />
+                <div style={{ background: gradient, width: '100%', height: 200, marginTop: -206, position: 'relative' }} >
+                </div>
                 <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', margin: 6 }}>
                     <Typography gutterBottom variant="h1">Emma & Jules</Typography>
                     <Typography sx={{}} variant="h3">10th April 2025</Typography>

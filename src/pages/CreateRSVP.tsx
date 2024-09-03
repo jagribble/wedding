@@ -109,6 +109,10 @@ export default function CreateRSVP() {
         window.open(csvContent, '_target')
     }, [peopleAttending]);
 
+
+    useEffect(() => {
+        console.log('isAuth', isAuthenticated, user)
+    }, [isAuthenticated, user])
     if (!isAuthenticated) {
         return (
             <>

@@ -74,6 +74,7 @@ function App() {
       <Auth0Provider
         domain="emmaandjules.eu.auth0.com"
         clientId="d6i0nrwBFpNr44brfFrg9SxlzfYEHeVD"
+        cacheLocation="localstorage"
         authorizationParams={{
           redirect_uri: window.location.origin
         }}
