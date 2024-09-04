@@ -15,6 +15,7 @@ const ResponseGiven = lazy(() => import('./pages/ResponseGiven'));
 const CreatePeople = lazy(() => import('./pages/CreatePeople'));
 const CreateRSVP = lazy(() => import('./pages/CreateRSVP'));
 const Uploads = lazy(() => import('./pages/Uploads'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const PageLayout = ({ children }) => children;
 
 const pageVariants = {
@@ -94,6 +95,7 @@ function App() {
                   <Route path="create" element={<CreatePeople />} />
                   <Route path="creatersvp" element={<CreateRSVP />} />
                   <Route path="uploads" element={<Uploads />} />
+                  <Route path="privacy-policy" element={<PrivacyPolicy />} />
                 </Route>
                 {/* </Route> */}
 
