@@ -6,6 +6,7 @@ import { Spacer } from "../components/Spacer";
 import { useAuth0 } from "@auth0/auth0-react";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import convertArrayToCSV from 'convert-array-to-csv';
+import PushNotificationButton from "../components/PushNotifications";
 
 const useStyles = makeStyles()((theme) => ({
     body: {

@@ -1,25 +1,61 @@
 {
-  "short_name": "Jules Gribble",
-  "name": "Jules Gribble",
+  "short_name": "Emma & Jules",
+  "name": "Emma & Jules 2025",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "EJ16.png",
+      "sizes": "16x16",
+      "type": "image/png"
     },
     {
-      "src": "logo192.jpeg",
-      "type": "image/jpeg",
-      "sizes": "192x192"
+      "src": "EJ24.png",
+      "sizes": "24x24",
+      "type": "image/png"
     },
     {
-      "src": "logo512.jpeg",
-      "type": "image/jpeg",
-      "sizes": "512x512"
+      "src": "EJ32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "EJ64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "EJ144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "EJ192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "EJ512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot.png",
+      "sizes": "1024x702",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Home Page"
+    },
+    {
+      "src": "screenshot_mobile.png",
+      "sizes": "750x1618",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Home Page"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#e19b9f",
   "background_color": "#ffffff"
 }

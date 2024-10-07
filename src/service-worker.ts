@@ -78,3 +78,15 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+self.addEventListener('push', event => {
+  if (event.data) {
+    const options = {
+      body: event.data.text(),
+      icon: '/EJ.png', // Replace with your icon path
+    };
+    event.waitUntil(
+      self.registration.showNotification('Emma and Jules 2025', options)
+    );
+  }
+
+});

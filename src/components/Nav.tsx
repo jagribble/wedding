@@ -1,8 +1,12 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { AppBar, Avatar, Box, Button, Container, Toolbar, Typography } from "@mui/material";
+import NotificationIcon from '@mui/icons-material/Notifications';
+import { AppBar, Avatar, Box, Button, Container, Icon, IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
 import React, { useCallback } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { makeStyles } from "tss-react/mui";
+import { systemUI } from "../pages/ResponseForm";
+import { getToken } from "firebase/messaging";
+import { messaging } from "../firebase";
 
 interface Page {
     name: string;
@@ -55,12 +59,31 @@ export function Nav() {
         }
         navigate(page.url);
     }, [navigate]);
+
+    async function requestPushPermission() {
+        //requesting permission using Notification API
+        const permission = await Notification.requestPermission();
+
+        if (permission === "granted") {
+            await navigator.serviceWorker.ready;
+            const token = await getToken(messaging, {
+                vapidKey: 'BNftXrwDmZln0nmpcGlqpMpFZeNdb8gVHLaz0PPZGfcjdw5vLqZhcWiyCdmXpVTO0egWMuVfCQV2GZHgVROoDKI',
+            });
+
+            //We can send token to server
+            console.log("Token generated : ", token);
+        } else if (permission === "denied") {
+            //notifications are blocked
+            alert("You denied for the notification");
+        }
+    }
+
     return (
         <>
             <AppBar position="fixed" color="primary">
                 <Container maxWidth="xl" >
                     <Toolbar disableGutters className={classes.appBar}>
-                        <Typography variant="h6" sx={{}} onClick={() => navigate('/')}>Emma & Jules</Typography>
+                        <Typography variant="h6" sx={{ flex: 1 }} onClick={() => navigate('/')}>Emma & Jules</Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} className={classes.pages}>
                             {/* {isAuthenticated ? (
                                 <>
@@ -73,6 +96,14 @@ export function Nav() {
                             )} */}
 
                         </Box>
+                        {window.matchMedia('(display-mode: standalone)').matches && Notification.permission !== 'granted' && (
+                            <IconButton
+                                onClick={requestPushPermission}
+                            >
+                                <NotificationIcon />
+
+                            </IconButton>
+                        )}
 
                     </Toolbar>
                 </Container>

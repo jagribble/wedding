@@ -57,10 +57,33 @@ export function register(config?: Config) {
   }
 }
 
+function urlB64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, '+')
+    .replace(/_/g, '/');
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
 function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      // registration.pushManager
+      //   .subscribe({
+      //     userVisibleOnly: true,
+      //     applicationServerKey: urlB64ToUint8Array('BNftXrwDmZln0nmpcGlqpMpFZeNdb8gVHLaz0PPZGfcjdw5vLqZhcWiyCdmXpVTO0egWMuVfCQV2GZHgVROoDKI'),
+      //   })
+      //   .then((subscription) => {
+      //     console.log(subscription); // This will log fcm endpoint!
+      //   });
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
@@ -72,6 +95,8 @@ function registerValidSW(swUrl: string, config?: Config) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
+
+              registration.waiting?.postMessage({ type: 'SKIP_WAITING' })
               console.log(
                 'New content is available and will be used when all ' +
                   'tabs for this page are closed. See https://cra.link/PWA.'
