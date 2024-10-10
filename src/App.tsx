@@ -14,6 +14,8 @@ const ResponseForm = lazy(() => import('./pages/ResponseForm'));
 const ResponseGiven = lazy(() => import('./pages/ResponseGiven'));
 const CreatePeople = lazy(() => import('./pages/CreatePeople'));
 const CreateRSVP = lazy(() => import('./pages/CreateRSVP'));
+const SendMessages = lazy(() => import('./pages/SendMessages'));
+const Memories = lazy(() => import('./pages/Memories'));
 const Uploads = lazy(() => import('./pages/Uploads'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const PageLayout = ({ children }) => children;
@@ -94,6 +96,8 @@ function App() {
                   <Route path="responded" element={<ResponseGiven />} />
                   <Route path="create" element={<CreatePeople />} />
                   <Route path="creatersvp" element={<CreateRSVP />} />
+                  <Route path="admin/messages" element={<SendMessages />} />
+                  <Route path="memories" element={<Memories />} />
                   <Route path="uploads" element={<Uploads />} />
                   <Route path="privacy-policy" element={<PrivacyPolicy />} />
                 </Route>

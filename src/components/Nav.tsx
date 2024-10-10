@@ -14,6 +14,22 @@ interface Page {
     external?: boolean;
 }
 
+function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+      .replace(/\-/g, '+')
+      .replace(/_/g, '/');
+  
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+  
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
+  
+
 // const pages: Page[] = [{ name: 'Bio', url: '/bio' }]
 const pages: Page[] = []
 
@@ -48,6 +64,10 @@ const useStyles = makeStyles()((theme) => ({
     }
 }));
 
+const vapidKey = {
+    "publicKey": "BImvJhNMyHKP_e1y7Dgp7xfvUzAHw3rLl2GY5g5eS81EIqvgZ1ppaaWjx7_I1DBZRJiR4yDqN5TdSvxSTEGzWwU",
+}
+
 export function Nav() {
     const { classes } = useStyles();
     const navigate = useNavigate();
@@ -61,17 +81,44 @@ export function Nav() {
     }, [navigate]);
 
     async function requestPushPermission() {
+        console.log('request perms')
         //requesting permission using Notification API
         const permission = await Notification.requestPermission();
 
         if (permission === "granted") {
             await navigator.serviceWorker.ready;
-            const token = await getToken(messaging, {
-                vapidKey: 'BNftXrwDmZln0nmpcGlqpMpFZeNdb8gVHLaz0PPZGfcjdw5vLqZhcWiyCdmXpVTO0egWMuVfCQV2GZHgVROoDKI',
-            });
+            console.log('Try and get service worker')
+            navigator.serviceWorker.getRegistration().then(registration => {
+                console.log('reg',registration);
+                if (registration) {
+                    registration.pushManager
+                        .subscribe({
+                            userVisibleOnly: true,
+                            applicationServerKey: urlBase64ToUint8Array(vapidKey.publicKey),
+                        })
+                        .then((subscription) => {
+                            console.log(subscription); // This will log fcm endpoint!
+                            fetch(`https://api.emmaandjules.info/push/set`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    sub: subscription
+                                })
+                            }).then(() => console.log('Subscription made'))
+                        });
+                }
 
-            //We can send token to server
-            console.log("Token generated : ", token);
+            });
+            console.log('Gone pass the block of code')
+            // const token = await getToken(messaging, {
+            //     // vapidKey: 'BNftXrwDmZln0nmpcGlqpMpFZeNdb8gVHLaz0PPZGfcjdw5vLqZhcWiyCdmXpVTO0egWMuVfCQV2GZHgVROoDKI',
+            //     vapidKey: 'BImvJhNMyHKP_e1y7Dgp7xfvUzAHw3rLl2GY5g5eS81EIqvgZ1ppaaWjx7_I1DBZRJiR4yDqN5TdSvxSTEGzWwU'
+            // });
+           
+            // //We can send token to server
+            // console.log("Token generated : ", token);
         } else if (permission === "denied") {
             //notifications are blocked
             alert("You denied for the notification");

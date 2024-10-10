@@ -110,10 +110,6 @@ export default function CreateRSVP() {
         window.open(csvContent, '_target')
     }, [peopleAttending]);
 
-
-    useEffect(() => {
-        console.log('isAuth', isAuthenticated, user)
-    }, [isAuthenticated, user])
     if (!isAuthenticated) {
         return (
             <>
@@ -169,7 +165,7 @@ export default function CreateRSVP() {
             <Typography sx={systemUI}>People Attending: {peopleAttending.length}</Typography>
             <Typography sx={systemUI}>People Not Attending: {peopleNotAttending.length}</Typography>
             <Button variant="contained" sx={systemUI} color="secondary" onClick={() => setOpen(true)}>Show Attendees</Button>
-            {filtered.map(x => <Card sx={{ margin: 1 }}><Typography sx={{ ...systemUI, margin: 0.5 }}><b>{x.code}</b>- {x.people.map(c => `${c.firstName} ${c.lastName}`).join(', ')}</Typography></Card>)}
+            {filtered.map(x => <Card sx={{ margin: 1 }}><Typography sx={{ ...systemUI, margin: 0.5 }}><b>{x.code} {x.finished && '✅'}</b>- {x.people.map(c => `${c.firstName} ${c.lastName} ${c.attending ? '✅' : ''} ${x.finished && !c.attending ? '❌' : ''}`).join(', ')}</Typography></Card>)}
             <Dialog open={open} onClose={() => setOpen(false)}>
                 <DialogContent>
                     <IconButton

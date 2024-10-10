@@ -76,13 +76,14 @@ function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      console.log('sw registered')
       // registration.pushManager
       //   .subscribe({
       //     userVisibleOnly: true,
       //     applicationServerKey: urlB64ToUint8Array('BNftXrwDmZln0nmpcGlqpMpFZeNdb8gVHLaz0PPZGfcjdw5vLqZhcWiyCdmXpVTO0egWMuVfCQV2GZHgVROoDKI'),
       //   })
       //   .then((subscription) => {
-      //     console.log(subscription); // This will log fcm endpoint!
+      //     console.log('sub', subscription); // This will log fcm endpoint!
       //   });
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
