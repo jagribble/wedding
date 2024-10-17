@@ -40,19 +40,13 @@
   ],
   "screenshots": [
     {
-      "src": "screenshot.png",
+      "src": "splash.png",
       "sizes": "1024x702",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Home Page"
-    },
-    {
-      "src": "screenshot_mobile.png",
-      "sizes": "750x1618",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Home Page"
+      "label": "Highfield Park"
     }
+   
   ],
   "start_url": ".",
   "display": "standalone",
